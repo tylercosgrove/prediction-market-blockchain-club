@@ -653,7 +653,7 @@ export default function Home() {
       });
       setAccount(accounts[0]);
     } else {
-      alert("No wallet found. Please install MetaMask.");
+      alert("No wallet found. Please install one.");
     }
   }
 
