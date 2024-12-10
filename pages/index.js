@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
+import Head from "next/head";
 
-const FACTORY_ADDRESS = "0xaf01FD2d88c23370DA03ad347c6A66Ad63339776";
+const FACTORY_ADDRESS = "0xD6FCbb93Af0dBE96A7eBFA0d869b0aB38135A76c";
 
 const factoryABI = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
@@ -756,55 +757,77 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen p-6 text-gray-800 font-mono">
-      <div className="max-w-5xl mx-auto">
-        <div className="flex mb-6 justify-between">
-          <h1 className="text-3xl font-bold">Prediction Market Builder</h1>
-          <button
-            onClick={connectWallet}
-            className="px-4 py-2 bg-green-900 text-white rounded hover:bg-green-800"
+    <>
+      <Head>
+        <title>Prediction Market Builder</title>
+      </Head>
+      <div className="min-h-screen p-6 text-gray-800 font-mono">
+        <div className="max-w-5xl mx-auto">
+          <a
+            className="text-green-800 hover:underline"
+            target="_blank"
+            href="https://sepolia.basescan.org/address/0xD6FCbb93Af0dBE96A7eBFA0d869b0aB38135A76c"
           >
-            {account ? (
-              <>
-                Connected:{" "}
-                <span className="font-bold">
-                  {account.slice(0, 6)}...{account.slice(-4)}
-                </span>
-              </>
-            ) : (
-              "Connect Wallet"
-            )}
-          </button>
-        </div>
+            view the contract on basescan
+          </a>
+          <div className="flex mb-6 justify-between">
+            <div>
+              <h1 className="text-3xl font-bold">Prediction Market Builder</h1>
+              <a
+                className="text-green-800 hover:underline"
+                target="_blank"
+                href="https://docs.base.org/docs/tools/network-faucets/"
+              >
+                get sepolia base ETH here
+              </a>
+            </div>
 
-        {/* Create Market Section */}
-        <div className="bg-zinc-100 p-6 rounded shadow mb-6">
-          <h2 className="text-xl font-semibold mb-4">Create a New Market</h2>
-          <input
-            className="w-full p-2 border border-gray-300 rounded mb-4"
-            placeholder="Market Question"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-          />
-          <input
-            className="w-full p-2 border border-gray-300 rounded mb-4"
-            placeholder="Market Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <button
-            onClick={createNewMarket}
-            className="px-4 py-2 bg-green-900 text-white rounded hover:bg-green-800"
-          >
-            Create Market
-          </button>
-        </div>
+            <button
+              onClick={connectWallet}
+              className="px-4 py-2 bg-green-900 text-white rounded hover:bg-green-800"
+            >
+              {account ? (
+                <>
+                  Connected:{" "}
+                  <span className="font-bold">
+                    {account.slice(0, 6)}...{account.slice(-4)}
+                  </span>
+                </>
+              ) : (
+                "Connect Wallet"
+              )}
+            </button>
+          </div>
 
-        {/* Display All Markets */}
-        {marketsData.map((m, idx) => (
-          <MarketDetails key={idx} market={m} account={account} />
-        ))}
+          {/* Create Market Section */}
+          <div className="bg-zinc-100 p-6 rounded shadow mb-6">
+            <h2 className="text-xl font-semibold mb-4">Create a New Market</h2>
+            <input
+              className="w-full p-2 border border-gray-300 rounded mb-4"
+              placeholder="Market Question"
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+            />
+            <input
+              className="w-full p-2 border border-gray-300 rounded mb-4"
+              placeholder="Market Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <button
+              onClick={createNewMarket}
+              className="px-4 py-2 bg-green-900 text-white rounded hover:bg-green-800"
+            >
+              Create Market
+            </button>
+          </div>
+
+          {/* Display All Markets */}
+          {marketsData.map((m, idx) => (
+            <MarketDetails key={idx} market={m} account={account} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
